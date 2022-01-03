@@ -1,2 +1,9 @@
 # typing
 typing-extensions
+
+opencv-python
+opencv-contrib-python
+open3d==0.14.1
+tqdm
+git+https://github.com/utiasSTARS/liegroups.git
+pyransac3d

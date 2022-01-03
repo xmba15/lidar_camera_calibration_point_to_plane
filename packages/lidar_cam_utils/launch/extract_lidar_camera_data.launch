@@ -1,0 +1,18 @@
+<launch>
+  <arg name="rosbag_path" default=""/>
+  <arg name="image_topic" default="/pylon_camera_node/image_raw"/>
+  <arg name="cloud_topic" default="/velodyne_points"/>
+  <arg name="output_path" default=''/>
+  <arg name="rosbag_play_factor" default='1'/>
+
+  <group if="$(eval arg('rosbag_path') != '')">
+    <node pkg="rosbag" type="play" name="rosbag" required="true" args="$(arg rosbag_path) -r $(arg rosbag_play_factor)">
+    </node>
+
+    <node pkg="lidar_cam_utils" type="extract_lidar_camera_data.py" name="extract_lidar_camera_data" output="screen">
+      <remap from="~cloud" to="$(arg cloud_topic)"/>
+      <remap from="~image" to="$(arg image_topic)"/>
+      <remap from="~output_path" to="$(arg output_path)" if="$(eval arg('output_path') != '')"/>
+    </node>
+  </group>
+</launch>

@@ -1,0 +1,3 @@
+opencv-python
+open3d
+open3d==0.14.1

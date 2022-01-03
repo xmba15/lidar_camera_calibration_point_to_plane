@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>lidar_cam_utils</name>
+  <version>0.0.0</version>
+  <description>The lidar_cam_utils package</description>
+
+  <maintainer email="thba1590@gmail.com">ba</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>message_filters</exec_depend>
+  <exec_depend>rosbag</exec_depend>
+
+  <export>
+  </export>
+</package>
