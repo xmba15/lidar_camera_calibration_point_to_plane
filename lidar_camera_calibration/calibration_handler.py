@@ -61,8 +61,7 @@ class CalibrationHandler:
         _logger.info("drawing projected lidar points on image...")
         self._draw_projections_lidar_on_cam(transformation_mat)
 
-        _logger.info(f"rpy rotation: {np.rad2deg(rpy)}[degree]")
-        _logger.info(f"translation: {tvec}[meter]")
+        return rpy, tvec
 
     def _draw_projections_lidar_on_cam(self, transformation_mat):
         import os

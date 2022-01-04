@@ -1,12 +1,18 @@
 #!/usr/bin/env python
 import argparse
+import logging
 import os
 import sys
+
+import numpy as np
 
 _CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(_CURRENT_DIR, "../"))
 if True:
     from lidar_camera_calibration import CalibrationHandler
+
+logging.basicConfig(level=logging.DEBUG, format="%(asctime)s %(name)s %(levelname)s:%(message)s")
+_logger = logging.getLogger(__name__)
 
 
 def get_args():
@@ -24,7 +30,12 @@ def main():
     calibration_handler = CalibrationHandler(
         args.dataset_info_json, args.image_list_path, args.cloud_list_path, args.data_path
     )
-    calibration_handler.run()
+    result = calibration_handler.run()
+    if result is None:
+        return
+    rpy, tvec = result
+    _logger.info(f"rpy rotation: {np.rad2deg(rpy)}[degree]")
+    _logger.info(f"translation: {tvec}[meter]")
 
 
 if __name__ == "__main__":
