@@ -10,10 +10,10 @@ if True:
 
 
 def get_args():
-    parser = argparse.ArgumentParser("lrf and camera calibration")
+    parser = argparse.ArgumentParser("lidar and camera calibration")
     parser.add_argument("--dataset_info_json", type=str, required=True)
-    parser.add_argument("--image_lists_path", type=str, required=True)
-    parser.add_argument("--cloud_lists_path", type=str, required=True)
+    parser.add_argument("--image_list_path", type=str, required=True)
+    parser.add_argument("--cloud_list_path", type=str, required=True)
     parser.add_argument("--data_path", type=str, required=True)
 
     return parser.parse_args()
@@ -22,7 +22,7 @@ def get_args():
 def main():
     args = get_args()
     calibration_handler = CalibrationHandler(
-        args.dataset_info_json, args.image_lists_path, args.cloud_lists_path, args.data_path
+        args.dataset_info_json, args.image_list_path, args.cloud_list_path, args.data_path
     )
     calibration_handler.run()
 

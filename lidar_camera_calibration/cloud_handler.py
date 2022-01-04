@@ -43,7 +43,6 @@ class CloudHandler:
         pcd = o3d.t.io.read_point_cloud(cloud_file)
         assert not pcd.is_empty(), f"failed to read {cloud_file}"
 
-        pcd.estimate_normals()
         xyz = pcd.point["positions"].numpy()
         pass_through_condition = None
         for i in np.arange(3):
