@@ -59,15 +59,15 @@ def _prepare_data(all_planes_lidar: List[Plane], all_planes_camera: List[Plane])
     num_pairs = len(all_planes_lidar)
     num_points = 0
     for i in np.arange(num_pairs):
-        num_points += len(all_planes_lidar[i].inliers)
+        num_points += len(all_planes_lidar[i].projections)
 
     planes_camera_coefficients = np.zeros((num_points, 5))
     all_lidar_points = np.zeros((num_points, 3))
 
     count = 0
     for i in np.arange(num_pairs):
-        cur_num_points = len(all_planes_lidar[i].inliers)
-        all_lidar_points[count : count + cur_num_points, :] = all_planes_lidar[i].inliers
+        cur_num_points = len(all_planes_lidar[i].projections)
+        all_lidar_points[count : count + cur_num_points, :] = all_planes_lidar[i].projections
         planes_camera_coefficients[count : count + cur_num_points, :4] = np.tile(
             all_planes_camera[i].coefficients, cur_num_points
         ).reshape(-1, 4)

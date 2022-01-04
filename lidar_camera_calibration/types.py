@@ -59,6 +59,7 @@ class Plane:
     ):
         self._coefficients = coefficients
         self._inliers = inliers
+        self._projections = None
 
     @property
     def coefficients(self):
@@ -71,6 +72,23 @@ class Plane:
     @property
     def inliers(self):
         return self._inliers
+
+    @property
+    def projections(self):
+        if self._inliers is None:
+            return None
+        else:
+            if self._projections is None:
+                self._projections = Plane.project_points_to_plane(self._inliers, self._coefficients)
+            return self._projections
+
+    @staticmethod
+    def project_points_to_plane(
+        points: Array[Tuple[int, Literal[3]], float], model_coefficients: Annotated[Tuple[float], 4]
+    ):
+        tiled_model_coefficients = np.tile(model_coefficients, len(points)).reshape(-1, 4)
+        signed_distances = np.sum(tiled_model_coefficients[:, :3] * points, axis=1) + tiled_model_coefficients[:, 3]
+        return points - tiled_model_coefficients[:, :3] * signed_distances.reshape(-1, 1)
 
     @staticmethod
     def signed_distance_points_to_plane(

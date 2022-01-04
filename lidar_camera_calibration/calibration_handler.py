@@ -85,7 +85,7 @@ class CalibrationHandler:
         if plane_lidar is None:
             return None
 
-        points = plane_lidar.inliers
+        points = plane_lidar.projections
         projected_points, _ = cv2.projectPoints(
             points, rvec, tvec, self._image_handler.camera_info.K, self._image_handler.camera_info.dist_coeffs
         )
